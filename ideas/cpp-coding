@@ -1,0 +1,10 @@
+* Replace any C++ keywords in your legacy C code (e.g. this, bool, etc.)
+* Call C code from C++ code
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+* Call C++ code from C code
+* Const correctness
