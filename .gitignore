@@ -1,1 +1,6 @@
 /build
+Debug
+Release
+bin
+obj
+__pycache__
