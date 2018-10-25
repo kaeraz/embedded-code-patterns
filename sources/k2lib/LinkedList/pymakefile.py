@@ -4,6 +4,18 @@ import subprocess as sp
 import pymakefile_user as user
 
 
+def join_and_normalize(path, *args):
+    path = os.path.join(path, *args)
+    return os.path.normpath(path)
+
+
+# Reprocess user makefile paths to be relative to user.USER_MAKEFILE_PATH
+user.BIN_DIR = join_and_normalize(user.USER_MAKEFILE_PATH, user.BIN_DIR)
+user.OBJECTS_DIR = join_and_normalize(user.USER_MAKEFILE_PATH, user.OBJECTS_DIR)
+user.SOURCE_FILES = [join_and_normalize(user.USER_MAKEFILE_PATH, x) for x in user.SOURCE_FILES]
+user.INCLUDE_DIRS = [join_and_normalize(user.USER_MAKEFILE_PATH, x) for x in user.INCLUDE_DIRS]
+
+
 def run_cmd(cmd):
     # Flatten the cmd argumet list
     flat_cmd = []
@@ -24,6 +36,7 @@ def run_cmd(cmd):
         print(f'{result.stdout}')
     if str(result.stderr).strip() != '':
         print(f'STDERR: {result.stderr}')
+    return result.returncode
 
 
 # Compilation start info
@@ -35,44 +48,46 @@ print('*'*80)
 
 
 # Remove output directory
-print(f'Removing output directory [{user.OBJECTS_DIR}]...')
-outdir = os.path.join('.', user.OBJECTS_DIR)
-outdir = os.path.normpath(outdir)
-if os.path.exists(outdir) and os.path.isdir(outdir):
-    shutil.rmtree(outdir)
+print(f'Removing objects output directory [{user.OBJECTS_DIR}]...')
+if os.path.exists(user.OBJECTS_DIR) and os.path.isdir(user.OBJECTS_DIR):
+    shutil.rmtree(user.OBJECTS_DIR)
+print(f'Removing binaries output directory [{user.BIN_DIR}]...')
+if os.path.exists(user.BIN_DIR) and os.path.isdir(user.BIN_DIR):
+    shutil.rmtree(user.BIN_DIR)
 
 # Run compilator for each source file
-user.SOURCE_FILES = [os.path.normpath(x) for x in user.SOURCE_FILES]
 user.INCLUDE_DIRS = ['-I' + x for x in user.INCLUDE_DIRS]
+print('')
 print(f'Running compilation for all source files {user.SOURCE_FILES}...')
 objectfiles = []
 print('')
 for srcfile in user.SOURCE_FILES:
     # Create directory for output
-    outdir = os.path.join('.', user.OBJECTS_DIR, os.path.dirname(srcfile))
-    outdir = os.path.normpath(outdir)
+    outdir = join_and_normalize(user.OBJECTS_DIR, os.path.dirname(srcfile))
     if not os.path.exists(outdir):
         print(f'Creating output directory [{outdir}]...')
         os.makedirs(outdir)
     # Compiling source file
     outfilename = os.path.splitext(os.path.basename(srcfile))[0] + '.o'
-    outpath = os.path.join(outdir, outfilename)
-    outpath = os.path.normpath(outpath)
+    outpath = join_and_normalize(outdir, outfilename)
     print(f'Compiling source file [{srcfile}]...')
-    run_cmd([user.CPP, '-c', user.CPP_FLAGS, user.INCLUDE_DIRS,
-             srcfile, '-o', outpath])
+    returncode = run_cmd([user.CPP, '-c', user.CPP_FLAGS, user.INCLUDE_DIRS,
+                          srcfile, '-o', outpath])
+    if returncode != 0:
+        break
     objectfiles.append(outpath)
     print('')
 
-# Link object files
-print(f'Linking files {objectfiles}...')
-outdir = os.path.join('.', user.BIN_DIR)
-outdir = os.path.normpath(outdir)
-if not os.path.exists(outdir):
-    print(f'Creating output directory [{outdir}]...')
-    os.makedirs(outdir)
-outpath = os.path.join(outdir, user.BIN_NAME)
-outpath = os.path.normpath(outpath)
-print('')
-print(f'Creating binary file {outpath}...')
-run_cmd([user.LD, objectfiles, user.CPP_FLAGS, '-o', outpath])
+if returncode == 0:
+    # Link object files
+    print(f'Linking files {objectfiles}...')
+    if not os.path.exists(user.BIN_DIR):
+        print(f'Creating binaries output directory [{user.BIN_DIR}]...')
+        os.makedirs(user.BIN_DIR)
+    outpath = join_and_normalize(user.BIN_DIR, user.BIN_NAME)
+    print(f'Creating binary file {outpath}...')
+    returncode = run_cmd([user.LD, objectfiles, user.CPP_FLAGS, '-o', outpath])
+
+if returncode == 0:
+    print('')
+    print(f'Compilation success!')

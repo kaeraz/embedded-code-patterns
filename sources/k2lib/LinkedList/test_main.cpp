@@ -1,8 +1,14 @@
 #ifndef SRC_MAIN_CPP_
 #define SRC_MAIN_CPP_
 
-#include "src/LinkedList/LinkedList.h"
-#include "src/globals.h"
+#include "LinkedList.h"
+#include <iostream>
+#include <stdbool.h>
+#include <stdint.h>
+
+
+using namespace std;
+
 
 int main(void)
 {
