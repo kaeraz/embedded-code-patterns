@@ -1,7 +1,30 @@
-import shutil
 import os
+import importlib.util
+import sys
+import shutil
 import subprocess as sp
-import pymakefile_user as user
+
+
+# Check script input arguments
+if len(sys.argv) != 2:
+    print(f'Invalid usage!')
+    print(f'\tpython pymakefile.py <PYMAKEFILE_USER_PATH>')
+    print(f'\twhere PYMAKEFILE_USER_PATH is a pyth to the pymakefile_user.py file.')
+    exit(1)
+else:
+    # Import dynamically user configuration module passed as second arguemnt
+    file_path = sys.argv[1]
+    if os.path.exists(file_path) and os.path.isfile(file_path):
+        module_name = os.path.splitext(os.path.basename(file_path))[0]
+        spec = importlib.util.spec_from_file_location(module_name, file_path)
+        user = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(user)
+        # Optional; only necessary if you want to be able to import the module
+        # by name later.
+        sys.modules[module_name] = user
+    else:
+        print(f'Provided PYMAKEFILE_USER_PATH user file "{pymakefile_user}" does not exist!')
+        exit(1)
 
 
 def join_and_normalize(path, *args):
@@ -41,6 +64,7 @@ def run_cmd(cmd):
 
 # Compilation start info
 info = f' Compiling "{user.BIN_NAME}" '
+print('')
 print('')
 print('*'*80)
 print(f'{info:*^80}')
