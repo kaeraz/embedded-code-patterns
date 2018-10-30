@@ -1,6 +1,3 @@
-#ifndef SRC_MAIN_CPP_
-#define SRC_MAIN_CPP_
-
 #include "LinkedList.h"
 #include <iostream>
 #include <stdbool.h>
@@ -12,7 +9,7 @@ using namespace std;
 
 int main(void)
 {
-  cout << "Start of example..." << endl;
+  cout << "Start of test..." << endl;
 
   k2lib::LinkedList<int> l;
 
@@ -33,8 +30,6 @@ int main(void)
     cout << "List node " << i << " with value of " << l.get(i)->data << endl;
   }
 
-  cout << "End of example..." << endl;
+  cout << "End of test..." << endl;
   return 1;
 }
-
-#endif /* SRC_MAIN_CPP_ */

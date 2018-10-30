@@ -21,14 +21,14 @@ CPP_FLAGS = [
     '-Wfatal-errors'
 ]
 # Set the output binary file name
-BIN_NAME = 'test-linkedlist.exe'
+BIN_NAME = 'test-pool.exe'
 # Set the binary output directory relative to USER_MAKEFILE_PATH
 BIN_DIR = 'bin'
 # Set the objects output directory relative to USER_MAKEFILE_PATH
 OBJECTS_DIR = 'obj'
 # Set source files relative to USER_MAKEFILE_PATH
 SOURCE_FILES = [
-    'test_LinkedList.cpp',
+    'test_Pool.cpp',
 ]
 # Set include directories relative to USER_MAKEFILE_PATH
 INCLUDE_DIRS = [
