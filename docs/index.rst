@@ -1,11 +1,5 @@
 .. include:: ../README.rst
 
-
-
-
-
-
-
 .. toctree::
    :maxdepth: 2
    :numbered:
@@ -13,9 +7,6 @@
 
    license_link.rst
 
-********
-Articles
-********
 .. toctree::
    :maxdepth: 2
    :numbered:
