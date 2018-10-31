@@ -1,4 +1,4 @@
-.. include:: README.rst
+.. include:: ../README.rst
 
 ************
 Introduction
@@ -8,7 +8,7 @@ Introduction
    :numbered:
    :caption: Introduction
 
-   LICENSE.rst
+   license_link.rst
 
 ********
 Articles
