@@ -1,22 +1,21 @@
-.. embedded-code-patterns documentation master file, created by
-   sphinx-quickstart on Thu Oct 18 08:30:26 2018.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. include:: README.rst
 
-Welcome to embedded-code-patterns's documentation!
-==================================================
-
+************
+Introduction
+************
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :numbered:
+   :caption: Introduction
 
-.. literalinclude:: /../sources/ListNode.h
-   :language: cpp
-   :caption: List Node example
+   LICENSE.rst
 
-Indices and tables
-==================
+********
+Articles
+********
+.. toctree::
+   :maxdepth: 2
+   :numbered:
+   :caption: Articles
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   pool/index.rst
