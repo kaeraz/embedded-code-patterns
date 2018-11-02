@@ -48,13 +48,13 @@ a sample implementation of the quite useful pattern, which is a **Pool** pattern
 Let's start...
 
 First of all, a **Pool** is a container that comprises declared ``SIZE``
-number of elements. Each * element has the same byte size. The application can
-take (allocate) elements * from the **Pool**, use it and when it is not needed
-anymore, give it back to * the **Pool** (deallocate). Other variation of the
-**Pool** pattern is when * deallocation is not supported. It is useful for the
-application which uses the * **Pool** only at system initialization (startup).
-This is the safest version * of the dynamic memory allocation, because it
-results in zero memory leakage, * reasonable memory waste and no fragmentation.
+number of elements. Each element has the same byte size. The application can
+take (allocate) elements from the **Pool**, use it and when it is not needed
+anymore, give it back to the **Pool** (deallocate). Other variation of the
+**Pool** pattern is when deallocation is not supported. It is useful for the
+application which uses the **Pool** only at system initialization (startup).
+This is the safest version of the dynamic memory allocation, because it
+results in zero memory leakage, reasonable memory waste and no fragmentation.
 
 Please take a look at the following code snippet.
 
@@ -133,7 +133,13 @@ In conclusion see below full code.
 
 .. literalinclude:: src/pool_full.h
     :language: cpp
-    :caption: Complete **Pull** pattern implementation.
+    :caption: Complete **Pool** pattern implementation.
+
+
+**Footnote**
+
+**kaeraz**, 2018/11
+
 
 .. _ADT: https://www.edn.com/electronics-blogs/embedded-basics/4441661/5-simple-steps-to-create-an-abstract-data-type-in-C
 .. _allocate: https://barrgroup.com/Embedded-Systems/How-To/Malloc-Free-Dynamic-Memory-Allocation
