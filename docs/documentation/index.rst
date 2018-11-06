@@ -82,6 +82,16 @@ and it is an ability to change the **UI** board with different one (maybe anothe
 with some extra LEDs). Now, we have the same interface to both boards **UI_1**
 and **UI_2** so that **UI's** firmware can only focus on data presentation.
 
+.. image:: uml/boards.png
+
+On the above picture I put a note regarding API compatibility. Lets imagine
+that both boards **PB** and **UI** are connected by UART interface. It is
+reasonable to develop such UART protocol that is not prone to protocol API
+extension. This can be easily justified - lets image the following scenario.
+
+1. Firmware for **PB** and **UI_1** is ready and working.
+2. 
+
 **Footnote**
 
 **kaeraz**, 2018/11
