@@ -55,7 +55,32 @@ Decomposition view
 ------------------
 In this section I would like to elaborate a bit on several aspects of the
 system architecture's **decomposition view**. **Decomposition view** presents
-decomposed system - its parts, components, elements and modules.
+decomposed system - its parts, components, elements and modules. Lets discuss
+simple example of two boards:
+
+  - User interface board (**UI**)
+  - Power board (**PB**)
+
+The **UI** board is kind of GUI that contains display and buttons. In case of
+washing machines **UI** board typically contains buttons, jog or rotator for
+program selection (that can be illuminated) and a display e.g. LCD or LED version.
+It is located at the top panel of the washing machine - everyone probably saw it...
+The **PB** board contains all drivers required for washing machine operation such
+as motor control driver, valves driver, heater driver, etc. By the driver I mean
+electronic circuitries for driving the certain actuator (motor, valve, heater).
+
+This kind of two board solution is a typical embedded system example. Lets
+think a bit what both boards firmwares should look like. In my experience it
+is a good approach to make **UI** board totally *stupid*. It means that
+all the business logic and data management shall be located on the **PB** board.
+This solution has one huge advantage - if there is a change in logic required
+only **PB**'s firmware has to be updated and analogously if data presentation
+change is requested only **UI**'s firmware is update. This is not always true
+because it is usually hard to completely decouple both boards' software. In the
+previous sentence is a small cheat. There is another big reason for this kind of solution
+and it is an ability to change the **UI** board with different one (maybe another variant,
+with some extra LEDs). Now, we have the same interface to both boards **UI_1**
+and **UI_2** so that **UI's** firmware can only focus on data presentation.
 
 **Footnote**
 
