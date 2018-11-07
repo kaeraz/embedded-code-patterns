@@ -86,11 +86,27 @@ and **UI_2** so that **UI's** firmware can only focus on data presentation.
 
 On the above picture I put a note regarding API compatibility. Lets imagine
 that both boards **PB** and **UI** are connected by UART interface. It is
-reasonable to develop such UART protocol that is not prone to protocol API
-extension. This can be easily justified - lets image the following scenario.
+reasonable to develop such UART protocol that is not prone to damage due to
+protocol API extension. This can be easily justified - lets image the following
+scenario.
 
 1. Firmware for **PB** and **UI_1** is ready and working.
-2. 
+2. Now both **PB** and **UI** teams start working on new **UI** variant and lets
+call it **UI_2**.
+3. New **UI_2** variant has extra LED 7-segment display to show time of selected
+washing cycle (TTE - time to end).
+4. Information about the TTE has to be delivered to the **UI_2** board.
+
+The scenario shows the case where additional information has to be delivered to
+**UI_2** board, in contrast to **UI_1** board which hasn't got this data. This
+means that protocol has to be extended by e.g. adding new message that conveys
+the TTE number. At this point it is not a good idea to change firmware for first
+variant **UI_1** - it just has to work properly when it receives TTE message
+from **PB**. Remember both **UI_1** and **UI_2** boards can used interchangeably
+with the **PB** board.
+
+OK, lets come back to the topic. The **decomposition view** shows modules
+and components structure and features the links (interfaces) between those elements.
 
 **Footnote**
 
