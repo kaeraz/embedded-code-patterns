@@ -108,6 +108,9 @@ with the **PB** board.
 OK, lets come back to the topic. The **decomposition view** shows modules
 and components structure and features the links (interfaces) between those elements.
 
+.. image:: uml/decomposition-view-pb.png
+
+The example shows...
 
 **Footnote**
 
