@@ -111,32 +111,46 @@ and components structure and features the links (interfaces) between those eleme
 .. image:: uml/decomposition-view-pb.png
 
 The example shows typical software **decomposition view**. Each component can be
-treated as a ``.c``/``.h`` (in C language) or as a group of files that expose
+treated as a ``.c``/``.h`` files (in C language) or as a group of those files that expose
 certain API. This API can be described in the another architecture view - **class
-diagram**. On the above picture you can see following:
+diagram**. The example features following:
 
  - Components at the bottom represents electrical actuators and circuitries that
-   expose steering interface e.g. traic gate input.
- - Upper layer consists of microcontroller peripheral drivers (this layer is
-   usually provided by the microcontroller vendor like ST or TI) and can
-   be easily configured by provided tools e.g. CubeMX from ST Microelectronics.
- - Hardware abstraction layer (HAL) is a layer that abstracts microcontroller
+   expose steering interface e.g. ``triac`` gate input.
+ - Upper layer consists of ``Microcontroller Peripheral Drivers`` (this layer is
+   usually provided by the microcontroller's vendor like **ST** or **TI**) and can
+   be easily configured by provided tools e.g. **CubeMX** from **ST Microelectronics**.
+ - The ``Hardware Abstraction layer`` (``HAL``) is a layer that abstracts microcontroller's
    peripherals by exposing frozen API to the application upper layers. As I said
    this frozen interface (bunch of predefined functions e.g. for controlling
-   microcontroller's GPIOs) does not change when we exchange the microcontroller
-   from e.g. STM32 to MSP432. The only change required is to update the
-   lower layers - microcontroller's drivers.
- - One layer upper we can find Board Support Package layer. It is usually optional
-   but quite useful in many cases. The best example of this layer we can find
-   in the popular dev-kits e.g. Arduino, STM32-Dicovery or MSP430 Launchpad.
-   Provided examples for those board contains predefined names for the existing
-   board hardware elements e.g. LEDs or Buttons. Take a closer look at the
-   Arduino board where among whole range of different dev-board, developers
-   use mnemonic ``1``, ``2``, ... for digital pins and ``A0``, ``A1``, ... for
+   microcontroller's GPIOs) does not change when we replace the microcontroller
+   from e.g. **STM32** to **MSP432**. The only change required is to update the
+   lower layers - ``Microcontroller Peripheral Drivers`` layer.
+ - One layer above the ``HAL`` we can find ``Board Support Package`` layer. It is
+   usually optional, however quite useful in many cases. The best example of this layer
+   we can find in the popular **dev-kits** e.g. **Arduino**, **STM32 Discovery** or
+   **MSP430 Launchpad**. Vendor provided examples for those boards contain predefined names
+   for the existing hardware elements e.g. **LEDs** or **Buttons**. Take a closer look at the
+   **Arduino** among the whole range of different **dev-board** - they varies in hardware, while
+   software developers use mnemonic ``1``, ``2``, ... for digital pins and ``A0``, ``A1``, ... for
    analog pins. The developer does not know which microcontroller's port or pin
    is hidden behind the mnemonics. This makes it very easy for the vendor
-   to produce various dev-kits that are able to run the same software (no change
-   are required - or small adjustements).
+   to produce various **dev-kits**, and developers are able to run the same software on it
+   (no change are required - or small adjustments).
+ - The *green* components represent ``Framework`` modules. ``Framework`` is a layer
+   that provides elements that can be used among the software layers
+   (usually from HAL up). Usually ``Framework`` layer contains of global components (Utilities/Libraries).
+   In the example I put ``Program Interpreter`` and ``State Machine Engine``.
+   The ``State Machine Engine`` component can be treated as a scaffolding for
+   underlaying state machines.
+ - The ``Washing cycle scripts`` components is a database that holds washing
+   cycles definition defined in custom scripting language. The scripts are
+   used and executed by the ``Program Interpreter``, which understands the commands
+   and delegates its execution to the ``xxx Control`` components (low level
+   algorithms and actions).
+ - The rest of the components resides in so called ``Business Logic layer``. Those
+   modules implement the program logic (e.g. state machines for controlling
+   the device and GUI - both communicated with each other).
 
 
 **Footnote**
