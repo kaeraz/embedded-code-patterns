@@ -92,9 +92,9 @@ scenario.
 
 1. Firmware for **PB** and **UI_1** is ready and working.
 2. Now both **PB** and **UI** teams start working on new **UI** variant and lets
-call it **UI_2**.
+   call it **UI_2**.
 3. New **UI_2** variant has extra LED 7-segment display to show time of selected
-washing cycle (TTE - time to end).
+   washing cycle (TTE - time to end).
 4. Information about the TTE has to be delivered to the **UI_2** board.
 
 The scenario shows the case where additional information has to be delivered to
@@ -110,7 +110,34 @@ and components structure and features the links (interfaces) between those eleme
 
 .. image:: uml/decomposition-view-pb.png
 
-The example shows...
+The example shows typical software **decomposition view**. Each component can be
+treated as a ``.c``/``.h`` (in C language) or as a group of files that expose
+certain API. This API can be described in the another architecture view - **class
+diagram**. On the above picture you can see following:
+
+ - Components at the bottom represents electrical actuators and circuitries that
+   expose steering interface e.g. traic gate input.
+ - Upper layer consists of microcontroller peripheral drivers (this layer is
+   usually provided by the microcontroller vendor like ST or TI) and can
+   be easily configured by provided tools e.g. CubeMX from ST Microelectronics.
+ - Hardware abstraction layer (HAL) is a layer that abstracts microcontroller
+   peripherals by exposing frozen API to the application upper layers. As I said
+   this frozen interface (bunch of predefined functions e.g. for controlling
+   microcontroller's GPIOs) does not change when we exchange the microcontroller
+   from e.g. STM32 to MSP432. The only change required is to update the
+   lower layers - microcontroller's drivers.
+ - One layer upper we can find Board Support Package layer. It is usually optional
+   but quite useful in many cases. The best example of this layer we can find
+   in the popular dev-kits e.g. Arduino, STM32-Dicovery or MSP430 Launchpad.
+   Provided examples for those board contains predefined names for the existing
+   board hardware elements e.g. LEDs or Buttons. Take a closer look at the
+   Arduino board where among whole range of different dev-board, developers
+   use mnemonic ``1``, ``2``, ... for digital pins and ``A0``, ``A1``, ... for
+   analog pins. The developer does not know which microcontroller's port or pin
+   is hidden behind the mnemonics. This makes it very easy for the vendor
+   to produce various dev-kits that are able to run the same software (no change
+   are required - or small adjustements).
+
 
 **Footnote**
 
