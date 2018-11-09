@@ -13,4 +13,5 @@
    :caption: Articles
 
    pool/index.rst
-   documentation/index.rst
+   documentation/part1.rst
+   documentation/part2.rst
