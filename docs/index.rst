@@ -1,17 +1,15 @@
 .. include:: ../README.rst
 
 .. toctree::
-   :maxdepth: 2
-   :numbered:
-   :caption: Introduction
+  :caption: Introduction
+  :maxdepth: 1
 
-   license_link.rst
+  license_link.rst
 
 .. toctree::
-   :maxdepth: 2
-   :numbered:
-   :caption: Articles
+  :caption: Articles
+  :maxdepth: 2
 
-   pool/index.rst
-   documentation/part1.rst
-   documentation/part2.rst
+  pool/index.rst
+  documentation/part1.rst
+  documentation/part2.rst

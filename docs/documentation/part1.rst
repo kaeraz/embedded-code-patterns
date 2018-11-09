@@ -2,10 +2,8 @@
 Documentation part 1 - decomposition view
 *****************************************
 
-----------
 Background
 ----------
-
 In all my years as a programmer I participated in several huge embedded
 software projects. A huge project, in my view, stands for a multi-board project
 with many of variants e.g. board to board combinations, that development lasts
@@ -27,9 +25,8 @@ Most of the IT projects does not succeed in terms of time and money. However,
 I do not want to yammer about a project issues, my todays goal is to elaborate
 a bit on software development **documentation**.
 
-System software documentation
------------------------------
-
+Software architecture
+---------------------
 At the initial project stage selected people work on **SW architecture**.
 There is no one definition of what **system architecture** is.
 

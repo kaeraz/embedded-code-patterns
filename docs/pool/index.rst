@@ -2,10 +2,8 @@
 Memory allocation using Pool
 ****************************
 
-------------
 Introduction
 ------------
-
 Dynamic memory allocation is a method which reserves RAM memory space (heap) in run-time
 code execution. In contrast to static memory allocation, it brings new possibilities
 in case of writing embedded programs, such us:
@@ -39,10 +37,8 @@ There are many technics how to overcome issues related with the dynamic memory
 allocation, but to be honest there is no cure-all solution. You can find some
 ideas and useful guidelines how to safely allocate_ memory in embedded world.
 
-------------
 Pool pattern
 ------------
-
 I wrote this article not to elaborate on memory allocation, but to provide you
 a sample implementation of the quite useful pattern, which is a **Pool** pattern.
 Let's start...
@@ -67,10 +63,8 @@ constructor that initializes internal memory *heap* and three methods ``palloc``
 ``free`` and ``size`` that are used to operate with the **Pool**. There is nothing
 hidden in mentioned methods, and their usage are commented in the code.
 
-------------------
 Pattern usage
 ------------------
-
 Simple example that shows how to operate with the **Pool** is depicted below.
 
 .. literalinclude:: src/pool_simple_use.cpp
@@ -84,10 +78,8 @@ keeps track of each elements status (free or allocated) - ``info``. In the small
 microcontrollers world this ``info`` object could be a huge overhead and for that
 reason it has to be implemented in a optimized fashion.
 
-------------------------
 Elements status tracking
 ------------------------
-
 My personal solution is to use bits to hold information about free/allocated
 elements. This approach requires creation of an array of e.g. ``uint8_t`` type
 which can hold enough bits for **Pool** size ``SIZE``. This can be calculated in
@@ -113,10 +105,8 @@ in the target byte ``bit_index``. Now, you can get ``&info[0]`` address and move
 it by ``byte_offset``. Obtained ``array`` element can be set/cleared/tested with
 the calculated ``bit_index`` - ``1 << bit_index``.
 
-----------
 Conclusion
 ----------
-
 There are many patterns that can help developers in memory management. Different
 applications require different approaches. The **Pool** pattern is one of the
 possible solutions. It is designed for rather applications that requires safety,
@@ -125,10 +115,8 @@ memory capacity. In this article you also gained a knowledge how to use bit-arra
 which can be lightweight solution for e.g. ``std::bitset``. I hope you have enjoyed
 this article and see you soon!
 
------------------------
 Complete implementation
 -----------------------
-
 In conclusion see below full code.
 
 .. literalinclude:: src/pool_full.h
