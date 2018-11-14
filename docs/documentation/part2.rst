@@ -13,11 +13,11 @@ definition.
 
 A **component**:
 
- - is part of software developed for re-use
- - supports information hiding
- - its functionality is exposed via **interfaces**
- - implements functionality
- - can consist of many components (composite component)
+- is part of software developed for re-use
+- supports information hiding
+- its functionality is exposed via **interfaces**
+- implements functionality
+- can consist of many components (composite component)
 
 In practice,
 
@@ -37,12 +37,12 @@ what the component does and what doesn't.
 
 To be clear an precise the **interface**:
 
- - is a list of inputs (e.g. methods) that tell the component to process (do
-   something) and give back an output (result)
- - separates the declaration (which shows what things component does) from
-   implementation (how component does the things)
- - is a contract that component supports defined interface methods
- - is a black-box in terms a view at the component
+- is a list of inputs (e.g. methods) that tell the component to process (do
+  something) and give back an output (result)
+- separates the declaration (which shows what things component does) from
+  implementation (how component does the things)
+- is a contract that component supports defined interface methods
+- is a black-box in terms a view at the component
 
 Above description is sometimes confusing. To put it as simply as possible,
 
