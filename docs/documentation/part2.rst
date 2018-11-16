@@ -50,6 +50,35 @@ Above description is sometimes confusing. To put it as simply as possible,
   has such an interface obligates itself to implement it. By the means of the
   interface you are able to invoke some component's code and get its result.*
 
+Functional view
+---------------
+It's time to discuss how interfaces and components are utilized in practice.
+Knowing the module's interface ahead of time has many advantages, however
+it is not always possible to realize. The modeling such as software designing
+might be a tool that can help you to examine modules communication and
+corresponding interfaces. Prior to modeling you should prepare a list of
+use cases or functionalities that you might want to achieve by the software.
+Start with big picture and break it down into smaller scenarios. Below you
+can find a list of exemplary functionaries in connection to filling the
+water into a washing machine.
+
+- Filling shall be executed to the defined level
+- It is possible to select water inlet (valve) for different program steps
+- Filling shall be executed by the time manner
+- Use pressure water level sensor to check water level
+- Monitor water level while filling to prevent overfilling
+- etc.
+
+Below I would like to present some of the functionalities presented in
+a **sequence diagram** using modules interfaces. Doing this on paper actually
+helped me to investigate what the interfaces should look like. The **sequence
+diagram** is a tool which shows particular communication scenario and
+features links and interactions between the software modules. Set of such
+dynamic diagrams forms a architecture **functional view**. The **functional
+view** focuses on modules communication to realize particular system function.
+
+.. image:: uml/sequence-fill.png
+
 
 **Footnote**
 
