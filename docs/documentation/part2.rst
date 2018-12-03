@@ -4,7 +4,7 @@ Documentation part 2 - interfaces and functional view
 
 Step back
 ---------
-Last time we discussed about software **decomposition view** which is one of many
+Last time I explained you software **decomposition view** which is one of many
 views of a **software architecture**, that you are likely to use when documenting
 you system. The **decomposition view** enables the designer to look deeply into
 a software system and break it down into software modules and components.
