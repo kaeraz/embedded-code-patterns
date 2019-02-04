@@ -13,3 +13,4 @@
   pool/index.rst
   documentation/part1.rst
   documentation/part2.rst
+  documentation/part3.rst

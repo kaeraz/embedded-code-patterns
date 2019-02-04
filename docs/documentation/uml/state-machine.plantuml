@@ -1,0 +1,32 @@
+@startuml
+title State Machine Diagram
+[*] -down-> PowerSavingMode : MainsPlugged
+state PowerSavingMode
+state Running
+state ProgramSelection
+
+state Finished
+state "Finished" as Finished {
+    state ProgramCanceled
+    state ProgramCompleted
+}
+
+PowerSavingMode -down-> ProgramSelection : ON_Pressed()
+ProgramSelection -up-> PowerSavingMode : OFF_Pressed()
+
+state "Running" as Running {
+  state ProgramRun
+  state ProgramPause
+  ProgramRun --> ProgramPause : START_Pressed()
+  ProgramPause --> ProgramRun : START_Pressed()
+}
+
+Running --> ProgramCanceled : START_Held3Sec()
+ProgramRun --> ProgramCompleted : Finished()
+
+
+ProgramSelection --> ProgramRun : START_Pressed()
+Finished --> ProgramSelection : JOG_Rotated()
+
+
+@enduml
