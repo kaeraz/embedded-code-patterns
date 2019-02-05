@@ -9,6 +9,7 @@ you have to customize the **Link Layer** for the target microcontroller.
 In order to do this, you have to take a look at the below files.
 
 .. code-block:: C++
+
     d2d_ll_config.h
     d2d_ll_config.c
 
@@ -51,6 +52,7 @@ Below examplary code uses **Low Level (LL)** library provided
 by **ST Microelectronis** for **STM32** microcontrollers.
 
 .. code-block:: C++
+    :linenos:
 
     void d2d_ll_peripheral_init(void)
     {
