@@ -1,6 +1,6 @@
-*****************************************
-Layer 2: Link Layer
-*****************************************
+**********************
+D2D - Link Layer setup
+**********************
 
 How to setup
 ------------
@@ -139,65 +139,6 @@ What next
 Above code is full of comments giving full overview how to implement
 the API for different microcontrollers.
 
-
-
-
-
-Layer 1: Physical Layer - Direct use of the layer
--------------------------------------------------
-The library Physical Layer is responsible for:
-
-    - Sending bytes over medium
-    - Receiving bytes over medium
-    - (Optional) Collision detection
-    - Medium interface error detection
-    - Frame CRC calculation and verification
-
-    | **NOTE**
-    |
-    | If you use the whole library it already initializes the L1 layer
-    | and registers the appripriate callbacks. There is no need of
-    | doing anything with mentioned API. You can easily skip this section
-    | and keep going reading.
-
-Following code snippet shows the L1 interface.
-
-.. code-block:: C++
-    :linenos:
-
-    typedef struct d2d_ll_cbs
-    {
-        void (*send_success)(uint8_t *frame, uint8_t len);
-        void (*send_timeout)(uint8_t *frame, uint8_t len);
-        void (*send_collision)(void);
-        void (*receive_success)(uint8_t *frame, uint8_t len);
-        void (*receive_timeout)(void);
-    } d2d_ll_cbs_t;
-
-
-    void d2d_ll_init(void);
-    d2d_status_t d2d_ll_register_cbs(d2d_ll_cbs_t *callbacks);
-
-    d2d_status_t d2d_ll_send(uint8_t *frameBuf, uint8_t len, uint16_t timeout);
-    d2d_status_t d2d_ll_receive(uint8_t *frameBuf);
-    d2d_status_t d2d_ll_receive_timeout(uint8_t *frameBuf, uint16_t timeout);
-    d2d_status_t d2d_ll_receive_proceed_timeout(void);
-    void d2d_ll_stop(void);
-
-The ``d2d_ll_init`` method is responsible for initializing the module
-at system startup. When the module is initialized you have to register
-callbacks that will be used to inform you about the events generated
-by the L1 layer. This can be done by calling ``d2d_ll_register_cbs``
-function.
-
-  
-
- 
-
-
-Conclusion
-----------
-This article..
 
 **Footnote**
 
