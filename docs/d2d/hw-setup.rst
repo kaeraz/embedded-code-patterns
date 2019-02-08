@@ -14,6 +14,8 @@ with the use of an **UART** microcontroller interface. In general the library
     - Medium interface error detection
     - Frame CRC calculation and verification
 
+Hardware circuit
+----------------
 Example solution of **L1** uses standard **UART interface** for sending signals
 between the devices. This decision gives simplicity and enables
 easy portability of the software for different microcontrollers. The
@@ -29,7 +31,7 @@ wire serial communication.
 
 What next
 ---------
-Go to the next article to find out how to setup **Layer 2 - Link Layer**.
+Go to the next article to find out how to setup **D2D** library.
 
 
 **Footnote**

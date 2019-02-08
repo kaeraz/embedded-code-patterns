@@ -44,7 +44,14 @@ probably more interesting how to provide quick but reliable
 implementation of the above functions.
 
 The random bit generation can utilize an **ADC** microcontroller's
-peripheral.
+peripheral. The least siginificant bit of an **ADC** conversion
+are usually unstable and floating. The test and not production code
+may use the analog input not connected, but just floating. Please
+refer to an examplary implementation of a **Pseudo Random Number Generator**
+in the **D2D** repository.
+
+
+
 
 
 What next

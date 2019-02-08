@@ -1,6 +1,15 @@
-**********************
-D2D - Link Layer setup
-**********************
+*****************
+D2D library setup
+*****************
+
+Introduction
+------------
+This chapter describes how to seput the **D2D** library. In general,
+correct setup requires few actions:
+
+    - **Link Layer** setup to support used microcontroller
+    - **Pseudo Random Number Generator** setup
+    - **Timer** module setup
 
 Layer 2: Link Layer overview
 ----------------------------
@@ -147,10 +156,127 @@ by **ST Microelectronis** for **STM32** microcontrollers.
         return (uint8_t)LL_USART_ReceiveData8(USART1);
     }
 
-What next
----------
 Above code is full of comments giving full overview how to implement
 the API for different microcontrollers.
+
+Layer 4: Tansport Layer overview
+--------------------------------
+The **Transport Layer** is a layer 4 in the **OSI** model.
+It is reponsible for providing end-to-end reliable communication
+between two logical Nodes. This layer ensures the user that
+data sent between the devices are correct and error-free.
+The **L4** manages a traffic over the medium. It controls
+a bandwidth by imposing speed reductions, controls
+message re-transmissions in case of framing errors and
+enusers data integrity such as maching a **Response** to
+the **Query**.
+
+How to setup
+------------
+There is no need to setup the **Transport Layer** and
+after it's initialization it is ready to go. However, there
+is one module on which the **L4** depends on. It is
+a **Pseudo Random Number Generator** (**PRNG**) module.
+
+Dependencies: Pseudo Random Number Generator setup
+--------------------------------------------------
+The **Pseudo Random Number Generator** module is used by the
+**Transport Layer** in order to generate random back-off times.
+It requires a small setup for a target microcontroller. Required
+setup can be done inside a ``prng_config.c/h`` files. Please take
+a look at the ``prng_config.h`` API.
+
+.. code-block:: C++
+    :linenos:
+
+    void prng_init_bit_generator(void);
+    void prng_start_bit_generator(void);
+    void prng_stop_bit_generator(void);
+    uint16_t prng_bit_generator_get(void);
+    int prng_delay(void);
+    void prng_seed(unsigned int x);
+
+Each function contains a descriptive doxygen comment. It is
+probably more interesting how to provide quick but reliable
+implementation of the above functions.
+
+The random bit generation can utilize an **ADC** microcontroller's
+peripheral. The least siginificant bit of an **ADC** conversion
+are usually unstable and floating. The test and not production code
+may use the analog input not connected, but just floating. Please
+refer to an examplary implementation of a **Pseudo Random Number Generator**
+in the **D2D** repository. The quick-and-dirty implementation for
+**ST Microelectronis** **STM32** microcontrollers is shown below.
+
+.. code-block:: C++
+    :lineos:
+
+    void prng_init_bit_generator(void)
+    {
+        // ADC peripheral is done outside by the CubeMX Tool.
+    }
+
+    void prng_start_bit_generator(void)
+    {
+        // Start the continuous ADC measurement
+        HAL_ADC_Start(&hadc2);
+    }
+
+    void prng_stop_bit_generator(void)
+    {
+        // Stop the continuous ADC measurement
+        HAL_ADC_Stop(&hadc2); 
+    }
+
+    uint16_t prng_bit_generator_get(void)
+    {
+        // Get the lest siginificant bit of current ADC value
+        return ((uint16_t)(HAL_ADC_GetValue(&hadc2) & 0x0001));
+    }   
+    
+
+    int __attribute__((optimize("O0"))) prng_delay(void)
+    {
+        int data = 0;
+
+        // Wait some time by looping. This delay is used
+        // by the PRNG module to wait between consecutive
+        // bit readings.
+        for (int i = 0; i < 1000; i++)
+        {
+            data += i;
+        }
+
+        return data;
+    }   
+                
+
+    void prng_seed(unsigned int x)
+    {
+        // Initialzie the pseudo random number generator
+        // with a given seed.
+        srand((unsigned int)x);
+    }   
+                
+    uint16_t prng_rand(uint16_t min, uint16_t max)
+    {
+        uint16_t randomNumber;
+
+        // Return the random number in a range
+        // from min to max.
+        randomNumber = (rand() % (max - min)) + min;
+
+        return randomNumber;
+    }
+
+The next section describes the **Timer** modules.
+
+Dependencies: Timer setup
+-------------------------
+
+What next
+---------
+
 
 
 **Footnote**

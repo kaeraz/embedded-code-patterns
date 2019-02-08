@@ -20,6 +20,6 @@
   :maxdepth: 2
   
   d2d/introduction.rst
-  d2d/physical_layer.rst
-  d2d/link_layer.rst
+  d2d/hw-setup.rst
+  d2d/sw-setup.rst
   d2d/transport_layer.rst
