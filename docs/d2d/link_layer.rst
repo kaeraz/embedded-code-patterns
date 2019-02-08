@@ -2,6 +2,19 @@
 D2D - Link Layer setup
 **********************
 
+Layer 2: Link Layer overview
+----------------------------
+The **Link Layer** also called **Data Link Layer** is responsible for
+transfering data between two devices. It defines how devices gain the
+access to a medium. The **Link Layer** organizes data before
+transmission and verifies whether the data were received or sent
+successully. The best example of it could be a collision detection
+feature - which is supported by the **D2D** libray. The **L2** plays
+an important role in error detection and error recovering. In case
+of an **UART** examplary implementation, **Link Layer** can detect
+medium transmission errors such as **parity** or **overrun**, or
+framing erros such as **CRC** mismatch.
+
 How to setup
 ------------
 After building a basic hardware connection between the Devices (Nodes),
