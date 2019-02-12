@@ -14,6 +14,11 @@ with the use of an **UART** microcontroller interface. In general the library
     - Medium interface error detection
     - Frame CRC calculation and verification
 
+.. note::
+
+    Examplary code and hardware is based on UART microcontroller's
+    peripheral.
+
 Hardware circuit
 ----------------
 Example solution of **L1** uses standard **UART interface** for sending signals

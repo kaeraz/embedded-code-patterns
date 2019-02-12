@@ -7,9 +7,14 @@ Introduction
 This chapter describes how to seput the **D2D** library. In general,
 correct setup requires few actions:
 
-    - **Link Layer** setup to support used microcontroller
+    - setup of **Link Layer** to support used microcontroller
     - **Pseudo Random Number Generator** setup
     - **Timer** module setup
+
+.. note::
+
+    The **D2D** library depends on two additional modules:
+    **Timer** module and **PSNG** module.
 
 Layer 2: Link Layer overview
 ----------------------------
@@ -209,7 +214,7 @@ in the **D2D** repository. The quick-and-dirty implementation for
 **ST Microelectronis** **STM32** microcontrollers is shown below.
 
 .. code-block:: C++
-    :lineos:
+    :linenos:
 
     void prng_init_bit_generator(void)
     {
@@ -273,10 +278,31 @@ The next section describes the **Timer** modules.
 
 Dependencies: Timer setup
 -------------------------
+The **D2D** library depends on **Timer** module, which provides
+a time counting facility. When **Timer** object is created
+it registers user callback method that is called after time
+expiration. There is little to setup in case of **Timer** module.
+One has to set a maximum number of **Timer** objects in the
+``timer_config.h`` file.
+
+.. code-block:: C++
+    :linenos:
+
+    /**
+     * @brief Defines number of Timers used in the application.
+     * 
+     */
+    #define TIMER_NO_TIMERS  (2) // Value of 2 is a minimum number of Timers
+                                 // for D2D library.
+
+The **D2D** library requires at least two **Timer** objects for
+proper operation.
 
 What next
 ---------
-
+After having an overview how to setup a **D2D** library, there
+is a time to dig into an example code. The next article covers
+this topic.
 
 
 **Footnote**
